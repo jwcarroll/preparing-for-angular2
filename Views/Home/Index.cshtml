@@ -1,0 +1,14 @@
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <h1>Welcome to Contact Manager</h1>
+    <div class="row">
+    	<ul class="nav nav-tabs">
+    	  <li role="presentation"><a href="/contacts">Contact List</a></li>
+          <li role="presentation"><a href="/contacts/new">Add Contact</a></li>
+    	</ul>  
+    </div>
+    <ng-view></ng-view>
+</div>

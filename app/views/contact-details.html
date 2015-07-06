@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-sm-12">
+		<form name="form" ng-submit="saveContact()" novalidate>
+			<div class="form-group" bs-validation-indicator="firstName">
+				<label class="control-label">First Name</label>
+				<input type="text" class="form-control" placeholder="First Name" required 
+					name="firstName" 
+					ng-model="contact.firstName">
+			</div>
+			<div class="form-group" bs-validation-indicator="lastName">
+				<label class="control-label">Last Name</label>
+				<input type="text" class="form-control" placeholder="Last Name" required
+					name="lastName" 
+					ng-model="contact.lastName">
+			</div>
+			<div class="form-group" bs-validation-indicator="city">
+				<label class="control-label">Last Name</label>
+				<input type="text" class="form-control" placeholder="City" required
+					name="city" 
+					ng-model="contact.city">
+			</div>
+			<div class="form-group" bs-validation-indicator="twitter">
+				<label class="control-label">Twitter</label>
+				<input type="text" class="form-control" placeholder="First Name" required
+					name="twitter" 
+					ng-model="contact.twitter">
+			</div>
+			<div class="form-group">
+				<label>Debug</label>
+				<code>form.valid: {{form.$valid}}</code>
+				<code>form.invalid: {{form.$invalid}}</code>
+				<code>form.dirty: {{form.$dirty}}</code>
+				<code>form.pristine: {{form.$pristine}}</code>
+				<code>form.submitted: {{form.$submitted}}</code>
+			</div>
+			<button type="submit" class="btn btn-primary" ng-disabled="!form.$valid || form.$pristine">Submit</button>
+			<button type="button" class="btn btn-danger" ng-click="cancelChanges()" ng-disabled="form.$pristine">Cancel</button>
+		</form>
+	</div>
+</div>

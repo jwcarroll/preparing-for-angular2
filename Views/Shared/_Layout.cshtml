@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="contact-manager">
+  <head>
+    <base href="/">
+    <meta charset="utf-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preparing For Angular2 - Josh Carroll</title>
+    <link href="/app/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/app/lib/hover.css/css/hover.css" rel="stylesheet" media="all">
+    <link href="/app/content/styles/app.css" rel="stylesheet" media="all">
+  </head>
+  <body>
+  
+    @RenderBody()
+  
+    <!-- Angular -->
+    <script src="/app/lib/angular/angular.min.js"></script>
+    <script src="/app/lib/angular-route/angular-route.min.js"></script>
+    <!-- Utils -->
+    <script src="/app/lib/lodash/index.js"></script>
+    <!-- App -->
+    <script src="/app/contact-manager.js"></script>
+    <script src="/app/services/contacts-service.js"></script>
+    <script src="/app/controllers/contact-list.js"></script>
+    <script src="/app/controllers/contact-details.js"></script>
+  
+  </body>
+</html>
