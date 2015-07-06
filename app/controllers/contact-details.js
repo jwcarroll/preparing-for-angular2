@@ -1,51 +1,49 @@
-/// <reference path="../../typings/tsd.d.ts" />
-
 (function () {
-	'use strict';
+   'use strict';
 
-	angular.module('contact-manager')
-		.controller('ContactDetailController', 
-		function ($scope, $location, $routeParams, $q, contactsService) {
+   angular.module('contact-manager')
+      .controller('ContactDetailController',
+         function ($scope, $location, $routeParams, $q, contactsService) {
 
-			var originalContact = {};
+            var originalContact = {};
 
-			$scope.cancelChanges = function () {
-				$scope.contact = angular.copy(originalContact);
-			};
+            $scope.cancelChanges = function () {
+               $scope.contact = angular.copy(originalContact);
+            };
 
-			$scope.saveContact = function () {
-				contactsService.saveContact($scope.contact).success(function () {
-					$location.path("/contacts");
-				});
-			};
+            $scope.saveContact = function () {
+               contactsService.saveContact($scope.contact).success(function () {
+                  $location.path("/contacts");
+               });
+            };
 
-			$scope.$watch('contact', function (newVal, oldVal) {
-				originalContact = angular.copy(newVal);
-			});
+            $scope.$watch('contact', function (newVal, oldVal) {
+               originalContact = angular.copy(newVal);
+            });
 
-			init();
+            init();
 
-			function init() {
-				var contactId = $routeParams['contactId'];
-				$scope.contact = {};
-				getContact(contactId).then(function (contact) {
-					$scope.contact = contact;
-				});
-			}
+            function init() {
+               var contactId = $routeParams['contactId'];
+               $scope.contact = {};
+               getContact(contactId).then(function (contact) {
+                  $scope.contact = contact;
+               });
+            }
 
-			function getContact(contactId) {
-				var def = $q.defer();
+            function getContact(contactId) {
+               var def = $q.defer();
 
-				if (_.isUndefined(contactId) || contactId === "new") {
-					def.resolve({});
-				}
+               if (_.isUndefined(contactId) || contactId === "new") {
+                  def.resolve({});
+               }
 
-				contactsService.getContact(contactId).success(function (contact) {
-					def.resolve(contact);
-				});
+               contactsService.getContact(contactId).success(function (contact) {
+                  def.resolve(contact);
+               });
 
-				return def.promise;
-			}
-		});
+               return def.promise;
+            }
+         });
 
 } ());
