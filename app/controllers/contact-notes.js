@@ -3,49 +3,52 @@
 
    function ContactNotesController($scope, contactNotesService) {
 
-      $scope.addNewContactNote = function () {
-         $scope.newNote = {
-            contactId: $scope.selectedContact.contactId,
+      var vm = this;
+
+      vm.addNewContactNote = function () {
+         vm.newNote = {
+            contactId: vm.selectedContact.contactId,
             note: '###New Note\n\n_just another note_'
          };
       };
 
-      $scope.cancelNewNote = function () {
-         $scope.newNote = undefined;
+      vm.cancelNewNote = function () {
+         vm.newNote = undefined;
       };
 
-      $scope.saveNote = function (contactNote) {
+      vm.saveNote = function (contactNote) {
          contactNotesService.saveContactNote(contactNote)
             .success(function (note) {
-               var existingNote = _.find($scope.contactNotes, { contactNoteId: note.contactNoteId });
+               var existingNote = _.find(vm.contactNotes, { contactNoteId: note.contactNoteId });
 
                if (_.isUndefined(existingNote)) {
-                  $scope.contactNotes.push(note);
+                  vm.contactNotes.push(note);
                } else {
                   existingNote.editMode = false;
                }
 
-               $scope.cancelNewNote();
+               vm.cancelNewNote();
             });
       };
 
-      $scope.deleteNote = function (contactNote) {
+      vm.deleteNote = function (contactNote) {
          contactNotesService.deleteContactNote(contactNote)
             .success(function (note) {
-               _.remove($scope.contactNotes, contactNote);
+               _.remove(vm.contactNotes, contactNote);
             });
       };
 
-      $scope.$watch('selectedContact', function () {
+      $scope.$watch('ctrl.selectedContact', function (newVal) {
+         vm.selectedContact = newVal;
          getNotes();
       });
 
       function getNotes() {
-         if (_.isUndefined($scope.selectedContact)) return;
+         if (_.isUndefined(vm.selectedContact)) return;
 
-         contactNotesService.getAll($scope.selectedContact.contactId)
+         contactNotesService.getAll(vm.selectedContact.contactId)
             .success(function (notes) {
-               $scope.contactNotes = notes;
+               vm.contactNotes = notes;
             });
       }
    }
