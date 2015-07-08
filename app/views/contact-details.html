@@ -1,40 +1,40 @@
 <div class="row">
 	<div class="col-sm-12">
-		<form name="form" ng-submit="saveContact()" novalidate>
+		<form name="ctrl.form" ng-submit="ctrl.saveContact()" novalidate>
 			<div class="form-group" bs-validation-indicator="firstName">
 				<label class="control-label">First Name</label>
 				<input type="text" class="form-control" placeholder="First Name" required 
 					name="firstName" 
-					ng-model="contact.firstName">
+					ng-model="ctrl.contact.firstName">
 			</div>
 			<div class="form-group" bs-validation-indicator="lastName">
 				<label class="control-label">Last Name</label>
 				<input type="text" class="form-control" placeholder="Last Name" required
 					name="lastName" 
-					ng-model="contact.lastName">
+					ng-model="ctrl.contact.lastName">
 			</div>
 			<div class="form-group" bs-validation-indicator="city">
 				<label class="control-label">Last Name</label>
 				<input type="text" class="form-control" placeholder="City" required
 					name="city" 
-					ng-model="contact.city">
+					ng-model="ctrl.contact.city">
 			</div>
 			<div class="form-group" bs-validation-indicator="twitter">
 				<label class="control-label">Twitter</label>
 				<input type="text" class="form-control" placeholder="First Name" required
 					name="twitter" 
-					ng-model="contact.twitter">
+					ng-model="ctrl.contact.twitter">
 			</div>
 			<div class="form-group">
 				<label>Debug</label>
-				<code>form.valid: {{form.$valid}}</code>
-				<code>form.invalid: {{form.$invalid}}</code>
-				<code>form.dirty: {{form.$dirty}}</code>
-				<code>form.pristine: {{form.$pristine}}</code>
-				<code>form.submitted: {{form.$submitted}}</code>
+				<code>ctrl.form.valid: {{ctrl.form.$valid}}</code>
+				<code>ctrl.form.invalid: {{ctrl.form.$invalid}}</code>
+				<code>ctrl.form.dirty: {{ctrl.form.$dirty}}</code>
+				<code>ctrl.form.pristine: {{ctrl.form.$pristine}}</code>
+				<code>ctrl.form.submitted: {{ctrl.form.$submitted}}</code>
 			</div>
-			<button type="submit" class="btn btn-primary" ng-disabled="!form.$valid || form.$pristine">Submit</button>
-			<button type="button" class="btn btn-danger" ng-click="cancelChanges()" ng-disabled="form.$pristine">Cancel</button>
+			<button type="submit" class="btn btn-primary" ng-disabled="!ctrl.form.$valid || ctrl.form.$pristine">Submit</button>
+			<button type="button" class="btn btn-danger" ng-click="ctrl.cancelChanges()" ng-disabled="ctrl.form.$pristine">Cancel</button>
 		</form>
 	</div>
 </div>

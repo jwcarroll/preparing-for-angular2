@@ -1,31 +1,39 @@
 (function () {
    'use strict';
 
-   function ContactDetailController($scope, $location, $routeParams, $q, contactsService) {
+   function ContactDetailController($location, $routeParams, $q, contactsService) {
 
-      var originalContact = {};
+      var vm = this,
+         contact,
+         originalContact = {};
 
-      $scope.cancelChanges = function () {
-         $scope.contact = angular.copy(originalContact);
+      vm.cancelChanges = function () {
+         vm.contact = angular.copy(originalContact);
       };
 
-      $scope.saveContact = function () {
-         contactsService.saveContact($scope.contact).success(function () {
+      vm.saveContact = function () {
+         contactsService.saveContact(vm.contact).success(function () {
             $location.path("/contacts");
          });
       };
 
-      $scope.$watch('contact', function (newVal, oldVal) {
-         originalContact = angular.copy(newVal);
+      Object.defineProperty(vm, 'contact', {
+         get:function(){
+            return contact;
+         },
+         set:function(newVal){
+            originalContact = angular.copy(newVal);
+            contact = newVal;   
+         }
       });
 
       init();
 
       function init() {
          var contactId = $routeParams['contactId'];
-         $scope.contact = {};
+         vm.contact = {};
          getContact(contactId).then(function (contact) {
-            $scope.contact = contact;
+            vm.contact = contact;
          });
       }
 

@@ -14,7 +14,8 @@
          })
          .when('/contacts/:contactId', {
             templateUrl: '/app/views/contact-details.html',
-            controller: 'ContactDetailController'
+            controller: 'ContactDetailController',
+            controllerAs: 'ctrl'
          })
          .otherwise({
             redirectTo: '/contacts'
