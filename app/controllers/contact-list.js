@@ -1,16 +1,18 @@
 (function () {
    'use strict';
 
-   function ContactListController($scope, contactsService) {
+   function ContactListController(contactsService) {
 
-      $scope.selectContact = function (contact) {
-         $scope.selectedContact = contact;
+      var vm = this;
+      
+      vm.selectContact = function (contact) {
+         vm.selectedContact = contact;
       };
 
-      $scope.deleteContact = function (contact) {
+      vm.deleteContact = function (contact) {
          contactsService.deleteContact(contact.contactId)
             .success(function () {
-               _.remove($scope.contacts, contact);
+               _.remove(vm.contacts, contact);
             });
       };
 
@@ -19,7 +21,7 @@
       function init() {
          contactsService.getAll()
             .success(function (contacts) {
-               $scope.contacts = contacts;
+               vm.contacts = contacts;
             });
       }
    }

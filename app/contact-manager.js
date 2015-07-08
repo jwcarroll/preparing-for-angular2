@@ -9,7 +9,8 @@
       $routeProvider
          .when('/contacts', {
             templateUrl: '/app/views/contact-list.html',
-            controller: 'ContactListController'
+            controller: 'ContactListController',
+            controllerAs: 'ctrl'
          })
          .when('/contacts/:contactId', {
             templateUrl: '/app/views/contact-details.html',
