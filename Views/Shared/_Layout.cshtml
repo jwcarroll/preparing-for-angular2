@@ -8,21 +8,28 @@
     <link href="/app/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/app/lib/hover.css/css/hover.css" rel="stylesheet" media="all">
     <link href="/app/content/styles/app.css" rel="stylesheet" media="all">
+    <link href="/app/content/font-awesome/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
   
     @RenderBody()
   
+    <!-- Utils -->
+    <script src="/app/lib/lodash/index.js"></script>
+    <script src="/app/lib/showdown/dist/showdown.js"></script>
     <!-- Angular -->
     <script src="/app/lib/angular/angular.min.js"></script>
     <script src="/app/lib/angular-route/angular-route.min.js"></script>
-    <!-- Utils -->
-    <script src="/app/lib/lodash/index.js"></script>
+    <script src="/app/lib/angular-sanitize/angular-sanitize.min.js"></script>
+    <!-- Angular Modules -->
+    <script src="/app/lib/angular-markdown-directive/markdown.js"></script>
     <!-- App -->
     <script src="/app/contact-manager.js"></script>
     <script src="/app/services/contacts-service.js"></script>
+    <script src="/app/services/contact-notes-service.js"></script>
     <script src="/app/controllers/contact-list.js"></script>
     <script src="/app/controllers/contact-details.js"></script>
+    <script src="/app/controllers/contact-notes.js"></script>
   
   </body>
 </html>

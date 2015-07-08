@@ -1,32 +1,65 @@
 <div class="row">
-	<div class="col-sm-4">
-		<h3>Contacts</h3>
-		<div class="contact-card media" ng-repeat="contact in contacts" ng-class="{selected:contact === selectedContact}">
-			<a class="pull-left" href ng-click="selectContact(contact)">
+   <div class="col-sm-4">
+      <h3>Contacts</h3>
+      <div class="contact-card media" ng-repeat="contact in contacts | orderBy:['firstName','lastName']" ng-class="{selected:contact === selectedContact}">
+         <a class="pull-left" href ng-click="selectContact(contact)">
 		        <img class="media-object dp img-circle" src="/app/content/img/user.svg" style="width: 100px;height:100px;">
 		    </a>
-			<div class="media-body">
-				<h4 class="media-heading">{{contact.firstName}} {{contact.lastName}}
-					<small>{{contact.city}}</small>
-				</h4>
-				<h5>Twitter:
-					<a ng-href="https://www.twitter.com/{{contact.twitter}}">@{{contact.twitter}}</a>
-				</h5>
-				<hr style="margin:8px auto">
-				<a class="btn btn-sm btn-primary" href ng-href="/contacts/{{contact.id}}">Edit</a>
-				<button class="btn btn-sm btn-danger" type="button" ng-click="deleteContact(contact)">Delete</button>
-			</div>
-		</div>
-		<div class="media">
-			<a class="pull-left" href="/contacts/new">
+         <div class="media-body">
+            <h4 class="media-heading">{{contact.firstName}} {{contact.lastName}}
+               <small>{{contact.city}}</small>
+            </h4>
+            <h5>Twitter:
+               <a ng-href="https://www.twitter.com/{{contact.twitter}}">@{{contact.twitter}}</a>
+            </h5>
+            <hr style="margin:8px auto">
+            <a class="btn btn-sm btn-primary" href ng-href="/contacts/{{contact.contactId}}">Edit</a>
+            <button class="btn btn-sm btn-danger" type="button" ng-click="deleteContact(contact)">Delete</button>
+         </div>
+      </div>
+      <div class="media">
+         <a class="pull-left" href="/contacts/new">
 	        	<img class="media-object dp img-circle" src="/app/content/img/user-plus.svg" style="width: 100px;height:100px;">
 	    	</a>
-			<div class="media-body">
-				<h4 class="media-heading">Add New<h4>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-8" ng-controller="contactNotesController">
-		<h3>Notes</h3>
-	</div>
+         <div class="media-body">
+            <h4 class="media-heading">Add New
+               <h4>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-8" ng-controller="ContactNotesController">
+      <h3>Notes
+         <small>
+            <a href ng-if="selectedContact" ng-click="addNewContactNote()">+ add new</a>
+         </small>
+      </h3>
+      <div class="row" ng-if="newNote">
+         <form name="newContactNoteForm" ng-submit="saveNote(newNote)">
+            <div class="form-group">
+               <textarea class="form-control" name="note" cols="30" rows="10" ng-model="newNote.note" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="!newContactNoteForm.$valid">Submit</button>
+            <button type="button" class="btn btn-danger" ng-click="cancelNewNote()">Cancel</button>
+         </form>
+      </div>
+      <div class="row" ng-repeat="contactNote in contactNotes | orderBy:'-created'">
+         <div class="col-sm-12">
+            <div ng-if="!contactNote.editMode" btf-markdown="contactNote.note"></div>
+            <div class="row" ng-if="contactNote.editMode">
+               <form name="contactNoteForm" ng-submit="saveNote(contactNote)">
+                  <div class="form-group">
+                     <textarea class="form-control" name="note" cols="30" rows="10" ng-model="contactNote.note" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary" ng-disabled="!contactNoteForm.$valid">Submit</button>
+                  <button type="button" class="btn btn-danger" ng-click="contactNote.editMode = false">Cancel</button>
+               </form>
+            </div>
+            <p class="text-muted">
+               <i>Created on: {{contactNote.created | date:'short'}}</i>
+               <a href ng-click="contactNote.editMode = true" class="uppercase">edit <i class="fa fa-pencil"></i></a>
+            </p>
+            <hr>
+         </div>
+      </div>
+   </div>
 </div>

@@ -27,7 +27,8 @@ namespace DivingIntoAngular.Controllers
         [HttpGet]
         public async Task<IEnumerable<Contact>> Get()
         {
-            return await _contactList.Contacts.ToListAsync();
+            return await _contactList.Contacts
+            .ToListAsync();
         }
 
         [HttpGet("{contactId:int}")]
@@ -36,7 +37,7 @@ namespace DivingIntoAngular.Controllers
             Contact existingContact = null;
 
             existingContact = await _contactList.Contacts
-               .SingleOrDefaultAsync(c => c.Id == contactId);
+               .SingleOrDefaultAsync(c => c.ContactId == contactId);
 
             if (existingContact == null)
             {
@@ -50,12 +51,12 @@ namespace DivingIntoAngular.Controllers
         public async Task<IActionResult> AddContact([FromBody] Contact contact)
         {
             _logger.LogInformation(JsonConvert.SerializeObject(contact));
-            
+
             _contactList.Contacts.Add(contact);
             await _contactList.SaveChangesAsync();
 
             return Created(
-                Url.Action(nameof(GetContact), new { contactId = contact.Id }),
+                Url.Action(nameof(GetContact), new { contactId = contact.ContactId }),
                 contact
             );
         }
@@ -66,39 +67,132 @@ namespace DivingIntoAngular.Controllers
             Contact existingContact = null;
 
             existingContact = await _contactList.Contacts
-               .SingleOrDefaultAsync(c => c.Id == contactId);
+               .SingleOrDefaultAsync(c => c.ContactId == contactId);
 
             if (existingContact == null)
             {
                 return HttpNotFound();
             }
-            
+
             Mapper.Map(contact, existingContact);
-            
-            _logger.LogInformation(JsonConvert.SerializeObject(new{contact, existingContact}));
-            
+
             await _contactList.SaveChangesAsync();
-            
+
             return new ObjectResult(existingContact);
         }
-        
+
         [HttpDeleteAttribute("{contactId:int}")]
-        public async Task<IActionResult> DeleteContact(Int32 contactId){
+        public async Task<IActionResult> DeleteContact(Int32 contactId)
+        {
             Contact existingContact = null;
 
             existingContact = await _contactList.Contacts
-               .SingleOrDefaultAsync(c => c.Id == contactId);
+               .SingleOrDefaultAsync(c => c.ContactId == contactId);
 
             if (existingContact == null)
             {
                 return new ObjectResult(null);
             }
-            
+
             _contactList.Contacts.Remove(existingContact);
+
+            await _contactList.SaveChangesAsync();
+
+            return new ObjectResult(existingContact);
+        }
+
+        [HttpGet("{contactId:int}/notes")]
+        public async Task<IEnumerable<ContactNote>> GetContactNotes(Int32 contactId)
+        {
+            return await (from cn in _contactList.ContactNotes
+                          where cn.ContactId == contactId
+                          select cn).ToListAsync();
+        }
+
+        [HttpGet("{contactId:int}/notes/{contactNoteId:int}")]
+        public async Task<IEnumerable<ContactNote>> GetContactNote(Int32 contactId, Int32 contactNoteId)
+        {
+            return await (from cn in _contactList.ContactNotes
+                          where cn.ContactId == contactId &&
+                                cn.ContactNoteId == contactNoteId
+                          select cn).ToListAsync();
+        }
+
+        [HttpPost("{contactId:int}/notes")]
+        public async Task<IActionResult> AddContactNote(Int32 contactId, [FromBody] ContactNoteViewModel contactNote)
+        {
+            Contact existingContact = null;
+
+            existingContact = await _contactList.Contacts
+               .SingleOrDefaultAsync(c => c.ContactId == contactId);
+
+            if (existingContact == null)
+            {
+                return new ObjectResult(null);
+            }
+
+            var newNote = new ContactNote()
+            {
+                ContactId = existingContact.ContactId,
+                Created = DateTime.UtcNow,
+                Note = contactNote.Note
+            };
+
+            _contactList.ContactNotes.Add(newNote);
+
+            await _contactList.SaveChangesAsync();
+
+            return CreatedAtAction(
+               nameof(GetContactNote),
+               new
+               {
+                   contactId = newNote.ContactId,
+                   contactNoteId = newNote.ContactNoteId
+               },
+               newNote);
+        }
+        
+        [HttpPut("{contactId:int}/notes/{contactNoteId:int}")]
+        public async Task<IActionResult> UpdateContactNote(Int32 contactId, Int32 contactNoteId, [FromBody] ContactNoteViewModel contactNote)
+        {
+            ContactNote existingNote = null;
+
+            existingNote = await _contactList.ContactNotes
+               .SingleOrDefaultAsync(cn => cn.ContactId == contactId && cn.ContactNoteId == contactNoteId);
+
+            if (existingNote == null)
+            {
+                return new ObjectResult(null);
+            }
+
+            existingNote.Note = contactNote.Note;
+            
+            return new ObjectResult(existingNote);
+        }
+        
+        
+        [HttpDelete("{contactId:int}/notes/{contactNoteId:int}")]
+        public async Task<IActionResult> DeleteContactNote(Int32 contactId, Int32 contactNoteId)
+        {
+            ContactNote existingNote = null;
+
+            existingNote = await _contactList.ContactNotes
+               .SingleOrDefaultAsync(cn => cn.ContactId == contactId && cn.ContactNoteId == contactNoteId);
+
+            if (existingNote == null)
+            {
+                return new ObjectResult(null);
+            }
+
+            _contactList.Remove(existingNote);
             
             await _contactList.SaveChangesAsync();
             
-            return new ObjectResult(existingContact);
+            return new ObjectResult(existingNote);
         }
+    }
+    
+    public class ContactNoteViewModel {
+       public string Note { get; set; }
     }
 }

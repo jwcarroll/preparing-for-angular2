@@ -15,15 +15,15 @@
 
          svc.saveContact = function (contact) {
             return $http({
-               url: '/api/contacts/' + (contact.id || ''),
-               method: _.isUndefined(contact.id) ? 'POST' : 'PUT',
+               url: '/api/contacts/' + (contact.contactId || ''),
+               method: _.isUndefined(contact.contactId) ? 'POST' : 'PUT',
                data: contact
             });
          };
 
          svc.deleteContact = function (contactId) {
             return $http.delete('/api/contacts/' + contactId);
-         };
+         };         
 
       });
 

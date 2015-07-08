@@ -1,7 +1,7 @@
 (function () {
    'use strict';
 
-   var app = angular.module('contact-manager', ['ngRoute']);
+   var app = angular.module('contact-manager', ['ngRoute', 'btford.markdown']);
 
    app.config(function ($routeProvider, $locationProvider) {
       $locationProvider.html5Mode(true);

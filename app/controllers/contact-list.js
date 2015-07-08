@@ -9,7 +9,7 @@
          };
 
          $scope.deleteContact = function (contact) {
-            contactsService.deleteContact(contact.id)
+            contactsService.deleteContact(contact.contactId)
                .success(function () {
                   _.remove($scope.contacts, contact);
                });

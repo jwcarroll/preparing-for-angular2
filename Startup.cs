@@ -43,6 +43,7 @@ namespace DivingIntoAngular
             services.AddLogging();
             
             Mapper.CreateMap<Contact, Contact>();
+            Mapper.CreateMap<ContactNote, ContactNote>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
