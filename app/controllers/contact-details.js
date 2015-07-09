@@ -1,7 +1,7 @@
 (function () {
    'use strict';
 
-   function ContactDetailController($location, $routeParams, $q, contactsService) {
+   function ContactDetailController($state, $stateParams, $q, contactsService) {
 
       var vm = this,
          contact,
@@ -13,7 +13,7 @@
 
       vm.saveContact = function () {
          contactsService.saveContact(vm.contact).success(function () {
-            $location.path("/contacts");
+            $state.go("contacts");
          });
       };
 
@@ -30,7 +30,7 @@
       init();
 
       function init() {
-         var contactId = $routeParams['contactId'];
+         var contactId = $stateParams['contactId'];
          vm.contact = {};
          getContact(contactId).then(function (contact) {
             vm.contact = contact;

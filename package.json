@@ -13,6 +13,7 @@
     "angular-markdown-directive": "^0.3.1",
     "angular-route": "^1.4.1",
     "angular-sanitize": "^1.4.2",
+    "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
     "font-awesome": "^4.3.0",
     "hover.css": "^2.0.2",
