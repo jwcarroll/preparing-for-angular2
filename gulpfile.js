@@ -18,6 +18,7 @@ var gulp = require('gulp'),
 // The default task (called when you run `gulp` from CLI)
 gulp.task('default', [
   'clean',
+  'build-ts',
   'copy-deps',
   'copy-libs',
   'copy-content',
@@ -53,6 +54,17 @@ gulp.task('copy-content', function () {
 });
 
 gulp.task('copy-app', ['copy-js', 'copy-templates']);
+
+gulp.task("build-ts", function () {
+  var tsProj = ts.createProject(app + '/tsconfig.json', {
+    typescript: require('typescript')
+  });
+
+  var tsResult = gulp.src(app + '/**/*.ts')
+    .pipe(ts(tsProj));
+
+  return tsResult.js.pipe(gulp.dest(releaseDir));
+});
 
 gulp.task('copy-js', function () {
   return gulp.src(app + '/**/*.js')
