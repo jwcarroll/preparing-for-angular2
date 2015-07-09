@@ -1,12 +1,13 @@
 (function () {
    'use strict';
 
-   function ContactListController(contactsService) {
+   function ContactListController($state, $stateParams, contactsService) {
 
       var vm = this;
       
       vm.selectContact = function (contact) {
          vm.selectedContact = contact;
+         $state.go('contacts.notes', {contactId:contact.contactId});
       };
 
       vm.deleteContact = function (contact) {
@@ -22,6 +23,14 @@
          contactsService.getAll()
             .success(function (contacts) {
                vm.contacts = contacts;
+               
+               var existingContact = _.find(vm.contacts, {
+                  contactId: parseInt($state.params.contactId, 10)
+               });
+               
+               if(existingContact){
+                  vm.selectContact(existingContact);
+               }
             });
       }
    }

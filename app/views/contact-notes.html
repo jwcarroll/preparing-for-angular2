@@ -1,0 +1,33 @@
+<h3>Notes
+   <small>
+      <a href ng-if="notes.selectedContact" ng-click="notes.addNewContactNote()">+ add new</a>
+   </small>
+</h3>
+<div class="row" ng-if="notes.newNote">
+   <form name="notes.newContactNoteForm" ng-submit="notes.saveNote(notes.newNote)">
+      <div class="form-group">
+         <textarea class="form-control" name="note" cols="30" rows="10" ng-model="notes.newNote.note" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" ng-disabled="!notes.newContactNoteForm.$valid">Submit</button>
+      <button type="button" class="btn btn-danger" ng-click="notes.cancelNewNote()">Cancel</button>
+   </form>
+</div>
+<div class="row" ng-repeat="contactNote in notes.contactNotes | orderBy:'-created'">
+   <div class="col-sm-12">
+      <div ng-if="!contactNote.editMode" btf-markdown="contactNote.note"></div>
+      <div class="row" ng-if="contactNote.editMode">
+         <form name="contactNoteForm" ng-submit="notes.saveNote(contactNote)">
+            <div class="form-group">
+               <textarea class="form-control" name="note" cols="30" rows="10" ng-model="contactNote.note" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="!notes.contactNoteForm.$valid">Submit</button>
+            <button type="button" class="btn btn-danger" ng-click="contactNote.editMode = false">Cancel</button>
+         </form>
+      </div>
+      <p class="text-muted">
+         <i>Created on: {{contactNote.created | date:'short'}}</i>
+         <a href ng-click="contactNote.editMode = true" class="uppercase">edit <i class="fa fa-pencil"></i></a>
+      </p>
+      <hr>
+   </div>
+</div>

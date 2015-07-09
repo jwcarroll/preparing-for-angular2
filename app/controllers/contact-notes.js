@@ -1,7 +1,7 @@
 (function () {
    'use strict';
 
-   function ContactNotesController($scope, contactNotesService) {
+   function ContactNotesController($stateParams, contactNotesService) {
 
       var vm = this;
 
@@ -38,10 +38,13 @@
             });
       };
 
-      $scope.$watch('ctrl.selectedContact', function (newVal) {
-         vm.selectedContact = newVal;
-         getNotes();
-      });
+      if($stateParams.contactId){
+         vm.selectedContact = {
+            contactId:$stateParams.contactId
+         };
+      }
+
+      getNotes();
 
       function getNotes() {
          if (_.isUndefined(vm.selectedContact)) return;
