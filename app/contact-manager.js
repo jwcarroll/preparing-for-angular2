@@ -9,19 +9,19 @@
 
       $stateProvider.state('contacts', {
             url:'/contacts',
-            templateUrl: '/app/views/contact-list.html',
+            templateUrl: '/app/contact/contact-list.html',
             controller: 'ContactListController',
             controllerAs: 'ctrl'
          })
          .state('contacts.notes', {
             url:'/:contactId/notes',
-            templateUrl: '/app/views/contact-notes.html',
+            templateUrl: '/app/contact-notes/contact-notes.html',
             controller: 'ContactNotesController',
             controllerAs: 'notes'
          })
          .state('contact', {
             url: '/contact/:contactId',
-            templateUrl: '/app/views/contact-details.html',
+            templateUrl: '/app/contact/contact-details.html',
             controller: 'ContactDetailController',
             controllerAs: 'ctrl'
          });
