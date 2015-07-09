@@ -1,13 +1,7 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
-
-interface IContact {
-   contactId:number;
-   firstName:string;
-   lastName:string;
-   city:string;
-   twitter:string;
-}
+import {IContact} from './contact';
+import {ContactService} from './contacts-service';
 
 class ContactListController {
    selectedContact: IContact;
@@ -16,14 +10,16 @@ class ContactListController {
    constructor(
       private $state,
       private $stateParams,
-      private contactsService) { }
+      private contactsService) {
+      this.init();
+   }
 
-   selectContact(contact:IContact) {
+   selectContact(contact: IContact) {
       this.selectedContact = contact;
       this.$state.go('contacts.notes', { contactId: contact.contactId });
    }
 
-   deleteContact(contact:IContact) {
+   deleteContact(contact: IContact) {
       this.contactsService.deleteContact(contact.contactId)
          .success(() => {
             _.remove(this.contacts, contact);
