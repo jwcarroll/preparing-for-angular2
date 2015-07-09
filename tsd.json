@@ -33,7 +33,13 @@
       "commit": "625cd68fed45e3230393af71bcde1d36706f3d56"
     },
     "lodash/lodash.d.ts": {
-      "commit": "625cd68fed45e3230393af71bcde1d36706f3d56"
+      "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
+    },
+    "angular-ui-router/angular-ui-router.d.ts": {
+      "commit": "563b64359d06907fb83c1b2367f9fd5b970d5ad7"
+    },
+    "showdown/showdown.d.ts": {
+      "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
     }
   }
 }

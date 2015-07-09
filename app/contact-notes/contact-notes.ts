@@ -8,7 +8,7 @@ interface IEditableContactNote extends IContactNote {
    editMode:boolean;
 }
 
-class ContactNotesController {
+export class ContactNotesController {
    newNote:IEditableContactNote;
    selectedContact:IContact;
    contactNotes:IEditableContactNote[];
@@ -63,11 +63,8 @@ class ContactNotesController {
       if (_.isUndefined(this.selectedContact)) return;
 
       this.contactNotesService.getAll(this.selectedContact.contactId)
-         .success(function(notes) {
+         .success(notes => {
             this.contactNotes = notes;
          });
    }
 }
-
-angular.module('contact-manager')
-   .controller('ContactNotesController', ContactNotesController);

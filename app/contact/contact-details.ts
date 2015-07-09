@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {IContact} from 'contact';
 import {ContactService} from './contacts-service';
 
-class ContactDetailController {
+export class ContactDetailController {
    private _contact: IContact;
    private originalContact: IContact;
 
@@ -59,6 +59,3 @@ class ContactDetailController {
       return def.promise;
    }
 }
-
-angular.module('contact-manager')
-   .controller('ContactDetailController', ContactDetailController);

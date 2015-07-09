@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 
-function ContactCard() {
+export function ContactCard() {
    return {
       restrict: 'E',
       templateUrl: '/app/contact/contact-card.html',
@@ -11,6 +11,3 @@ function ContactCard() {
       }
    };
 }
-
-angular.module('contact-manager')
-   .directive('contactCard', ContactCard);

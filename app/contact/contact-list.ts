@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {IContact} from './contact';
 import {ContactService} from './contacts-service';
 
-class ContactListController {
+export class ContactListController {
    selectedContact: IContact;
    contacts: IContact[];
 
@@ -41,6 +41,3 @@ class ContactListController {
          });
    }
 }
-
-angular.module('contact-manager')
-   .controller('ContactListController', ContactListController);

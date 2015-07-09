@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="contact-manager">
+<html>
   <head>
     <base href="/">
     <meta charset="utf-8" />
@@ -14,26 +14,25 @@
   
     @RenderBody()
   
-    <!-- Utils -->
-    <script src="/app/lib/lodash/index.js"></script>
-    <script src="/app/lib/showdown/dist/showdown.js"></script>
-    <!-- Angular -->
-    <script src="/app/lib/angular/angular.min.js"></script>
-    <script src="/app/lib/angular-route/angular-route.min.js"></script>
-    <script src="/app/lib/angular-sanitize/angular-sanitize.min.js"></script>
-    <!-- Angular Modules -->
-    <script src="/app/lib/angular-markdown-directive/markdown.js"></script>
-    <script src="/app/lib/angular-ui-router/release/angular-ui-router.js"></script>
-    <!-- App -->
-    <script src="/app/contact-manager.js"></script>
-    <!-- Contact Components -->
-    <script src="/app/contact/contacts-service.js"></script>
-    <script src="/app/contact/contact-list.js"></script>
-    <script src="/app/contact/contact-details.js"></script>
-    <script src="/app/contact/contact-card.js"></script>
-    <!-- Contact Notes Components -->
-    <script src="/app/contact-notes/contact-notes.js"></script>
-    <script src="/app/contact-notes/contact-notes-service.js"></script>
+    <script src="/app/lib/systemjs/dist/system.js"></script>
+    <script>
+      System.defaultJSExtensions = true;
+      System.config({
+        baseURL: '/app',
+        paths:{
+          '*':'*.js'
+        },
+        map:{
+          'lodash':'/app/lib/lodash/index.js',
+          'angular':'/app/lib/angular/index.js',
+          'angular-sanitize':'/app/lib/angular-sanitize/index.js',
+          'angular-ui-router':'/app/lib/angular-ui-router/release/angular-ui-router.js',
+          'showdown':'/app/lib/showdown/dist/showdown.js'
+        }
+      });
+      
+      System['import']('bootstrap');
+    </script>
   
   </body>
 </html>

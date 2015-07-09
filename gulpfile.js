@@ -28,7 +28,7 @@ gulp.task('default', [
 gulp.task('serve', ['default', 'watch', 'dnx-run']);
 
 gulp.task('watch', function () {
-  gulp.watch(app + '/**/*', ['copy-app']);
+  gulp.watch(app + '/**/*', ['build-ts','copy-app']);
   gulp.watch('./content/**/*', ['copy-content']);
 });
 

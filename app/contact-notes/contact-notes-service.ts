@@ -25,6 +25,3 @@ export class ContactNotesService {
       return this.$http.delete(`/api/contacts/${contactId}/notes/${contactNoteId}`);
    };
 }
-
-angular.module('contact-manager')
-   .service('contactNotesService', ContactNotesService);
