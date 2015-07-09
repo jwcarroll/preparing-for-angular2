@@ -24,7 +24,7 @@
     content:url('/app/content/img/user.svg');
 }
 
-.contact-card.media.selected .dp {
+.selected .contact-card.media .dp {
     border:2px solid #5bc0de;
     background-color: #8feb8f;
     content:url('/app/content/img/check.svg');
